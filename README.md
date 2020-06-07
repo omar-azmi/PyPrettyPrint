@@ -50,7 +50,11 @@ cpp(bool)				#Custom printing
 ![Console output 1](./examples/console%20output/readme%20example%202.png)
 
 ## Installation
-In your project's root directory, create a new `./PrettyClassPrint/` folder. Next, download the PrettyClassPrint.py and place it in the folder you just made. To import the PrettyClassPrint class, use `from PrettyClassPrint.PrettyClassPrint import PrettyClassPrint`
+In your project's root directory, create a new `./PrettyClassPrint/` folder.
+
+Download the PrettyClassPrint.py and place it in the folder you just made.
+
+To import the PrettyClassPrint class, use `from PrettyClassPrint.PrettyClassPrint import PrettyClassPrint`
 
 ## Planned improvements
 - Add derived class tree printing
