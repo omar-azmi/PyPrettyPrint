@@ -22,7 +22,7 @@ pp(bool)		#Prints the attributes and methods of the bool built in class in a tab
 ```
 
 **Output:**
-PNG
+![Console output 1](./examples/console%20output/readme%20example%201.png)
 
 ### Case 2:
 > Customize the output to:
@@ -42,16 +42,15 @@ class CustomPrint(PCP):			#The PrettyClassPrint must be inherited as a base clas
 	display_vertical_separator = " |$| ";
 	display_horizontal_separator = "+\u2014+";
 
-
 cpp = CustomPrint.pretty_print		#Aliasing our custom the pretty print function for quick access
 cpp(bool)				#Custom printing
 ```
 
 **Output:**
-PNG
+![Console output 1](./examples/console%20output/readme%20example%202.png)
 
 ## Installation
-Download PrettyClassPrint.py file to the root of your project, and import the PrettyClassPrint class it using `from PrettyClassPrint import PrettyClassPrint`
+In your project's root directory, create a new `./PrettyClassPrint/` folder. Next, download the PrettyClassPrint.py and place it in the folder you just made. To import the PrettyClassPrint class, use `from PrettyClassPrint.PrettyClassPrint import PrettyClassPrint`
 
 ## Planned improvements
 - Add derived class tree printing
