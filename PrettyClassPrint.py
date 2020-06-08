@@ -21,29 +21,33 @@ class PrettyClassPrint:
 	display_horizontal_separator = "\u2014";
 	
 	@classmethod
-	def print_single_obj_properties(cls, obj):
+	def print_single_obj_properties(cls, obj, obj_name = "unknown"):
 		output = [];
 		for prop in cls.display_properties:
-			try:
-				if isinstance(prop, str):
-					#We're accessing a class property with obj.__getattribute__("name of property") or getattr(obj, "name of property")
-						output += [str(getattr(obj, prop))];
-				else:
-					#We're passing obj to a function with prop(obj)
-					output += [str(prop(obj))];
-			except:
-				output += ["unknown"];
+			if prop == "__name__" or prop == "name" or prop == "alias":
+				#The name given of class variables must be handled differently. There is no built in way of finding out an object's list of referenced names
+				output += [obj_name];
+			else:
+				try:
+					if isinstance(prop, str):
+						#We're accessing a class property with obj.__getattribute__("name of property") or getattr(obj, "name of property")
+							output += [str(getattr(obj, prop))];
+					else:
+						#We're passing obj to a function with prop(obj)
+						output += [str(prop(obj))];
+				except:
+					output += ["unknown"];
 		return output
 	
 	@classmethod
 	def pretty_print(cls, obj):
 		obj_attrs_str = [attr for attr in dir(obj) if not(attr.startswith("__") and attr.endswith("__"))];
 		obj_attrs = [getattr(obj, attr) for attr in obj_attrs_str];
-		obj_attrs_properties = [cls.print_single_obj_properties(obj_attr) for obj_attr in obj_attrs];		
+		obj_attrs_properties = [cls.print_single_obj_properties(obj_attrs[i], obj_attrs_str[i]) for i in range(len(obj_attrs))];		
 		terminal_cols, terminal_rows = os.get_terminal_size();
 		terminal_cols, terminal_rows = terminal_cols - 1, terminal_rows - 1;
 		display_portions_len = [int(terminal_cols*dp - len(cls.display_vertical_separator)) for dp in cls.display_portions];
-
+		
 		def stream_print(string_list):
 			print_this_recursion = [""]*len(string_list);
 			print_next_recursion = [""]*len(string_list);
@@ -63,7 +67,7 @@ class PrettyClassPrint:
 				display_property_names += [prop];
 			else:
 				display_property_names += [prop.__name__];
-
+		
 		print((cls.display_horizontal_separator)*(int(float(terminal_cols)/len(cls.display_horizontal_separator))));
 		stream_print(display_property_names);
 		print((cls.display_horizontal_separator)*(int(float(terminal_cols)/len(cls.display_horizontal_separator))));
